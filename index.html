@@ -1,31 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <title>Glow Beauty Supply</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>GlossUp Supply</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
-<script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "123456",
-  appId: "APP_ID"
-};
-
-const app = initializeApp(firebaseConfig);
-
-</script>
 <body>
 
-  <h1>Glow Beauty Supply</h1>
+  <header>
+    <h1>GlossUp Supply</h1>
 
-  <a href="shop.html">Shop Now</a>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Shop</a>
+      <a href="#">Cart</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Beauty Products You’ll Love</h2>
+    <p>Lashes • Lip Gloss • Skincare • Hair</p>
+
+    <button>Shop Now</button>
+  </section>
+
+  <!-- Firebase -->
+  <script type="module">
+
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBXS_vMwSa58ymxcnExiNWBY022iXH366o",
+      authDomain: "glossup-supply.firebaseapp.com",
+      projectId: "glossup-supply",
+      storageBucket: "glossup-supply.firebasestorage.app",
+      messagingSenderId: "757191546014",
+      appId: "1:757191546014:web:397c8a774e71585c76978f"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    console.log("Firebase Connected");
+
+  </script>
 
 </body>
 
