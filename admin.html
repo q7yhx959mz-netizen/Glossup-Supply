@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <h1>Admin Dashboard</h1>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+  </nav>
+</header>
+
+<section class="admin">
+
+  <h2>Add Product</h2>
+
+  <input id="name" placeholder="Product Name">
+  <input id="price" placeholder="Price">
+  <input id="image" placeholder="Image URL">
+
+  <button onclick="addProduct()">Add Product</button>
+
+</section>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBXS_vMwSa58ymxcnExiNWBY022iXH366o",
+  authDomain: "glossup-supply.firebaseapp.com",
+  projectId: "glossup-supply",
+  storageBucket: "glossup-supply.firebasestorage.app",
+  messagingSenderId: "757191546014",
+  appId: "1:757191546014:web:397c8a774e71585c76978f"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.addProduct = async function () {
+
+  let name = document.getElementById("name").value;
+  let price = document.getElementById("price").value;
+  let image = document.getElementById("image").value;
+
+  if (!name || !price || !image) {
+    alert("Fill all fields");
+    return;
+  }
+
+  await addDoc(collection(db, "products"), {
+    name: name,
+    price: Number(price),
+    image: image,
+    createdAt: Date.now()
+  });
+
+  alert("Product added!");
+
+  document.getElementById("name").value = "";
+  document.getElementById("price").value = "";
+  document.getElementById("image").value = "";
+};
+
+</script>
+
+</body>
+</html>
