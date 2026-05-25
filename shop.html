@@ -1,1 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop - GlossUp</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <h1>Shop GlossUp</h1>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+</header>
+
+<section class="products">
+
+  <div class="card">
+    <h3>Lip Gloss</h3>
+    <p>$12</p>
+    <button onclick="addToCart('Lip Gloss', 12)">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <h3>Lashes</h3>
+    <p>$18</p>
+    <button onclick="addToCart('Lashes', 18)">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <h3>Glow Serum</h3>
+    <p>$24</p>
+    <button onclick="addToCart('Glow Serum', 24)">Add to Cart</button>
+  </div>
+
+</section>
+
+<script>
+function addToCart(name, price) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  cart.push({ name, price });
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  alert(name + " added to cart!");
+}
+</script>
+
+</body>
+</html>
