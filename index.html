@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>GlossUp Supply</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>GlossUp Supply</h1>
+
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Shop</a>
+      <a href="#">Cart</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Beauty Products You’ll Love</h2>
+
+    <p>Lashes • Lip Gloss • Skincare • Hair</p>
+
+    <button>Shop Now</button>
+  </section>
+
+  <script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBXS_vMwSa58ymxcnExiNWBY022iXH366o",
+      authDomain: "glossup-supply.firebaseapp.com",
+      projectId: "glossup-supply",
+      storageBucket: "glossup-supply.firebasestorage.app",
+      messagingSenderId: "757191546014",
+      appId: "1:757191546014:web:397c8a774e71585c76978f"
+    };
+
+    const app = initializeApp(firebaseConfig);
+
+    console.log("Firebase Connected");
+
+  </script>
+
+</body>
+
+</html>
