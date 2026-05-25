@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html>
 
+<head>
+  <title>Cart</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <h1>Your Cart</h1>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+  </nav>
+</header>
+
+<div id="cart"></div>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+let container = document.getElementById("cart");
+
+let total = 0;
+
+cart.forEach(item => {
+  total += item.price;
+
+  container.innerHTML += `
+    <p>${item.name} - $${item.price}</p>
+  `;
+});
+
+container.innerHTML += `<h3>Total: $${total}</h3>`;
+</script>
+
+</body>
+</html>
