@@ -149,3 +149,31 @@ button {
   border-radius: 8px;
   cursor: pointer;
 }
+.cart-container {
+  padding: 50px;
+  text-align: center;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  max-width: 500px;
+  margin: 15px auto;
+
+  padding: 15px;
+  background: white;
+
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.cart-item button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
