@@ -45,7 +45,17 @@
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { 
+  getFirestore, 
+  collection, 
+  addDoc, 
+  getDocs 
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+import { 
+  getAuth, 
+  onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBXS_vMwSa58ymxcnExiNWBY022iXH366o",
@@ -58,23 +68,30 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
-// THIS replaces your old localStorage cart
+let currentUser = null;
+
+// Detect logged-in user
+onAuthStateChanged(auth, (user) => {
+  currentUser = user;
+});
+
+// ADD TO CART (USER-SPECIFIC)
 window.addToCart = async function(name, price) {
 
-  try {
-    await addDoc(collection(db, "cart"), {
-      name: name,
-      price: price,
-      createdAt: Date.now()
-    });
-
-    alert(name + " added to Firebase cart!");
-
-  } catch (error) {
-    console.error("Error adding to cart:", error);
+  if (!currentUser) {
+    alert("You must log in first!");
+    return;
   }
 
+  await addDoc(collection(db, "users", currentUser.uid, "cart"), {
+    name: name,
+    price: price,
+    createdAt: Date.now()
+  });
+
+  alert(name + " added to your cart!");
 };
 
 </script>
