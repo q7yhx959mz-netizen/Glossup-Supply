@@ -42,14 +42,41 @@
 
 </section>
 
-function addToCart(name, price) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+<script type="module">
 
-  cart.push({ name, price });
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-  localStorage.setItem("cart", JSON.stringify(cart));
+const firebaseConfig = {
+  apiKey: "AIzaSyBXS_vMwSa58ymxcnExiNWBY022iXH366o",
+  authDomain: "glossup-supply.firebaseapp.com",
+  projectId: "glossup-supply",
+  storageBucket: "glossup-supply.firebasestorage.app",
+  messagingSenderId: "757191546014",
+  appId: "1:757191546014:web:397c8a774e71585c76978f"
+};
 
-  alert(name + " added to cart!");
-}
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// THIS replaces your old localStorage cart
+window.addToCart = async function(name, price) {
+
+  try {
+    await addDoc(collection(db, "cart"), {
+      name: name,
+      price: price,
+      createdAt: Date.now()
+    });
+
+    alert(name + " added to Firebase cart!");
+
+  } catch (error) {
+    console.error("Error adding to cart:", error);
+  }
+
+};
+
+</script>
 </body>
 </html>
