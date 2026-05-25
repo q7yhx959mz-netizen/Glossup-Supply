@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - GlossUp</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <h1>Login</h1>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+</header>
+
+<section class="login-box">
+
+  <h2>Welcome Back</h2>
+
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+
+  <button onclick="signup()">Sign Up</button>
+  <button onclick="login()">Login</button>
+
+  <p id="status"></p>
+
+</section>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import { 
+  getAuth, 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword 
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBXS_vMwSa58ymxcnExiNWBY022iXH366o",
+  authDomain: "glossup-supply.firebaseapp.com",
+  projectId: "glossup-supply",
+  storageBucket: "glossup-supply.firebasestorage.app",
+  messagingSenderId: "757191546014",
+  appId: "1:757191546014:web:397c8a774e71585c76978f"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+const status = document.getElementById("status");
+
+// SIGN UP
+window.signup = async function() {
+
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    status.innerText = "Account created!";
+  } catch (err) {
+    status.innerText = err.message;
+  }
+};
+
+// LOGIN
+window.login = async function() {
+
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    status.innerText = "Logged in!";
+  } catch (err) {
+    status.innerText = err.message;
+  }
+};
+
+</script>
+
+</body>
+</html>
