@@ -19,22 +19,79 @@
 
 <div id="cart"></div>
 
-<script>
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+<script type="module">
 
-let container = document.getElementById("cart");
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import { 
+  getFirestore, 
+  collection, 
+  getDocs, 
+  deleteDoc, 
+  doc 
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-let total = 0;
+import { 
+  getAuth, 
+  onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
-cart.forEach(item => {
-  total += item.price;
+const firebaseConfig = {
+  apiKey: "AIzaSyBXS_vMwSa58ymxcnExiNWBY022iXH366o",
+  authDomain: "glossup-supply.firebaseapp.com",
+  projectId: "glossup-supply",
+  storageBucket: "glossup-supply.firebasestorage.app",
+  messagingSenderId: "757191546014",
+  appId: "1:757191546014:web:397c8a774e71585c76978f"
+};
 
-  container.innerHTML += `
-    <p>${item.name} - $${item.price}</p>
-  `;
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+let cartDiv = document.getElementById("cartItems");
+let totalText = document.getElementById("total");
+
+let user = null;
+
+// LOAD USER CART
+onAuthStateChanged(auth, async (u) => {
+
+  if (!u) {
+    cartDiv.innerHTML = "<p>Please log in</p>";
+    return;
+  }
+
+  user = u;
+
+  const snapshot = await getDocs(collection(db, "users", user.uid, "cart"));
+
+  let total = 0;
+  cartDiv.innerHTML = "";
+
+  snapshot.forEach((itemDoc) => {
+
+    const item = itemDoc.data();
+    total += item.price;
+
+    cartDiv.innerHTML += `
+      <div class="cart-item">
+        <h3>${item.name}</h3>
+        <p>$${item.price}</p>
+
+        <button onclick="removeItem('${itemDoc.id}')">Remove</button>
+      </div>
+    `;
+  });
+
+  totalText.innerText = "Total: $" + total;
 });
 
-container.innerHTML += `<h3>Total: $${total}</h3>`;
+// REMOVE ITEM
+window.removeItem = async function(id) {
+  await deleteDoc(doc(db, "users", user.uid, "cart", id));
+  location.reload();
+};
+
 </script>
 
 </body>
